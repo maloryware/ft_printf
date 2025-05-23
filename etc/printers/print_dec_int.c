@@ -20,25 +20,20 @@ static int	handle_plus_space(int n, t_pdata *flags, int side)
 		ft_putchar('+');
 	if (n >= 0 && flags->space_for_sign)
 		ft_putchar(' ');
-	return (1);
+	return (flags->force_sign | flags->space_for_sign);
 }
 
-static void	putchar_looper(int a, int count)
+static int	extra_flags(int len, t_pdata *flags, unsigned int n, int phase)
 {
-	unsigned char	c;
+	int	count;
 
-	c = (unsigned char) a;
-	while (count--)
-		write(1, &c, 1);
-}
-
-static int	extra_flags(int len, t_pdata *flags, int n, int phase)
-{
 	len += handle_plus_space(n, flags, phase);
-	if (phase == 1 && flags->padding_side == PAD_RIGHT)
-		putchar_looper(0, flags->precision);
-	if (phase == 2 && flags->padding_side == PAD_LEFT)
-		putchar_looper(0, flags->precision);
+	if (phase == 1)
+	{
+		count = flags->precision;
+		while (count-- > 0)
+			write(1, "0", 1);
+	}
 	return (len);
 }
 
@@ -46,14 +41,19 @@ int	print_dec_int(int n, t_pdata *flags)
 {
 	char	*out;
 	int		len;
+	int		original_length;
+	int		original_precision;
 
 	out = ft_itoa(n);
-	len = extra_flags(ft_strlen(out), flags, n, 0);
-	len = handle_padding(flags, len, PAD_LEFT);
+	original_length = ft_strlen(out);
+	original_precision = flags->precision;
+	flags->precision -= original_length;
+	len = extra_flags(original_length, flags, n, 0);
+	len = handle_padding(flags, len + original_precision, PAD_LEFT);
 	len = extra_flags(len, flags, n, 1);
-	write(1, out, ft_strlen(out));
+	write(1, out, original_length);
 	len = handle_padding(flags, len, PAD_RIGHT);
-	len = extra_flags(len, flags, n, 2);
 	free(out);
+
 	return (len);
 }
