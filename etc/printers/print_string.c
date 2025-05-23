@@ -15,9 +15,16 @@
 int	print_string(char *str, t_pdata *flags)
 {
 	int	len;
+	int	limit;
 
-	len = handle_padding(flags, ft_strlen(str), PAD_LEFT);
+	limit = flags->has_precision * flags->precision;
+	if (limit)
+		str = ft_substr(str, 0, limit);
+	len = ft_strlen(str);
+	if (!flags->zero_pad)
+		len = handle_padding(flags, len, PAD_LEFT);
 	ft_putstr(str);
-	len = handle_padding(flags, len, PAD_RIGHT);
+	if (!flags->zero_pad)
+		len = handle_padding(flags, len, PAD_RIGHT);
 	return (len);
 }

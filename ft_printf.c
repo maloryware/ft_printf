@@ -24,6 +24,8 @@ t_pdata	*fl_init(void)
 	data->space_for_sign = FALSE;
 	data->force_sign = FALSE;
 	data->len = 0;
+	data->precision = FALSE;
+	data->has_precision = FALSE;
 	return (data);
 }
 
@@ -35,6 +37,8 @@ void	reset_pdata(t_pdata *data)
 	data->padding_length = 0;
 	data->space_for_sign = FALSE;
 	data->force_sign = FALSE;
+	data->precision = FALSE;
+	data->has_precision = FALSE;
 }
 
 // TODO: see also: printf manpage 3

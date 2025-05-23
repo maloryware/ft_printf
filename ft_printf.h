@@ -6,7 +6,7 @@
 /*   By: Mal <malory@onenetbeyond.org>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 02:09:20 by Mal               #+#    #+#             */
-/*   Updated: 2025/05/17 02:09:22 by Mal              ###   ########.fr       */
+/*   Updated: 2025/05/20 15:33:13 by Mal              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct s_pdata
 	int		padding_length;
 	int		len;
 	int		early_break;
+	int		precision;
+	int		has_precision;
 }	t_pdata;
 
 t_pdata	*fl_init(void);
@@ -76,9 +78,6 @@ int		handle_padding(t_pdata *flags, int len, int side);
 
 int		format_delegator(
 			int index, va_list params, const char *format, t_pdata *flags);
-
-int		handle_flags(
-			int index, const char *format, t_pdata *flags);
 
 int		print_char(int c, t_pdata *flags);
 int		print_dec_int(int n, t_pdata *flags);

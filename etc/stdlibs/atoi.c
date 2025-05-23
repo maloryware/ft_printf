@@ -39,7 +39,7 @@ static int	ft_isdigit(int i)
 	return ((i >= 48 && i <= 57));
 }
 
-int	atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int	i;
 	int	out;

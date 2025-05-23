@@ -13,10 +13,39 @@
 #include "../ft_printf.h"
 #include <stdlib.h>
 
-static void	set_padding_length(t_pdata *f, char *tofree)
+static int	handle_flags(
+				int pos,
+				const char *format,
+				t_pdata *f);
+
+static int	set_padding_length(t_pdata *f, char *format, int pos)
 {
-	f->padding_length = atoi(tofree);
-	free(tofree);
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (matches(format[pos + i], "0123456789"))
+		i++;
+	tmp = ft_substr(format, pos, i);
+	f->padding_length = atoi(tmp);
+	pos += i;
+	free(tmp);
+	return (pos);
+}
+
+static int	set_precision_length(t_pdata *f, char *format, int pos)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (matches(format[pos + i], "0123456789"))
+		i++;
+	tmp = ft_substr(format, pos, i);
+	f->precision = atoi(tmp);
+	pos += i;
+	free(tmp);
+	return (pos);
 }
 
 int	format_delegator(
@@ -26,15 +55,8 @@ int	format_delegator(
 	t_pdata *f
 )
 {
-	int	len;
-
-	len = 0;
 	i++;
 	i = handle_flags(i++, format, f);
-	while (matches(format[i + len], "0123456789"))
-		len++;
-	set_padding_length(f, ft_substr(format, i, len));
-	i += len;
 	if (format[i] == 'c')
 		f->len += print_char(va_arg(params, int), f);
 	else if (format[i] == 's')
@@ -52,13 +74,12 @@ int	format_delegator(
 	return (i);
 }
 
-int	handle_flags(
-	int pos,
-	const char *format,
-	t_pdata *f
-)
+static int	handle_flags(
+				int pos,
+				const char *format,
+				t_pdata *f)
 {
-	while (matches(format[pos], "#0-+ ."))
+	while (matches(format[pos], "#0-+ .123456789"))
 	{
 		f->pad_0x = (format[pos] == '#' || f->pad_0x);
 		f->padding_side = (format[pos] == '-' || f->padding_side);
@@ -67,7 +88,12 @@ int	handle_flags(
 				&& !f->force_sign);
 		f->zero_pad = ((format[pos] == '0' || f->zero_pad)
 				&& !f->padding_side);
+		f->has_precision = ((format[pos] == '.' || f->has_precision));
+		if (matches(format[pos], "123456789"))
+			pos = set_padding_length(f, (char *) format, pos) - 1;
 		pos++;
+		if (format[pos - 1] == '.')
+			pos = set_precision_length(f, (char *) format, pos);
 	}
 	return (pos);
 }

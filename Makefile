@@ -7,8 +7,8 @@ ETC = etc
 LIBS = $(ETC)/stdlibs
 PRNT = $(ETC)/printers
 
-LMAIN = __loc_main.c
-TMAIN = usr_tests.c
+LMAIN = __main_tests.c
+TMAIN = __usr_tests.c
 
 # ------------- #
 
@@ -59,9 +59,9 @@ run: lmain $(NAME)
 	@echo
 
 test: $(NAME) tmain
-	cc $(CFLAGS) -fsanitize=address -g -ggdb3 -o usr_tests.out $(TMAIN) $(NAME)
+	cc $(CFLAGS) -fsanitize=address -g -ggdb3 -o usr_test.out $(TMAIN) $(NAME)
 	@make clean
-	@./usr_tests.out
+	@./usr_test.out
 
 debug: $(NAME) run
 	cc $(CFLAGS) -fsanitize=address -g -ggdb3 -o main_test.out $(LMAIN) $(NAME)
@@ -83,13 +83,13 @@ $(LMAIN):
 tmain: $(TMAIN)
 
 $(TMAIN):
-	@curl -o $(TMAIN) 'https://raw.githubusercontent.com/maloryware/42-remote/refs/heads/main/common-core/ms1/ft_printf/usr_tests.c'
+	@curl -o $(TMAIN) 'https://raw.githubusercontent.com/maloryware/42-remote/refs/heads/main/common-core/ms1/ft_printf/__usr_tests.c'
 
 clean:
 	@rm -f $(OBJ)
 
 fclean: clean
-	@rm -f $(NAME) $(TMAIN) $(LMAIN) main_test.out usr_tests.out
+	@rm -f $(NAME) $(TMAIN) $(LMAIN) usr_test.out main_test.out
 
 re: fclean all
 
