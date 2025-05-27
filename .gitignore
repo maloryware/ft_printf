@@ -3,3 +3,4 @@ __main_tests.c
 __usr_tests.c
 output/
 build/
+libftprintf.a
