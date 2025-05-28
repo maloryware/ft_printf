@@ -47,7 +47,7 @@ list: $(NAME)
 	@ar -t $(NAME) | sed 's/\.o/.c/g' | awk '{print "#include \"" $$1 "\""}'
 
 run: lmain $(NAME)
-	$(CC) $(CFLAGS) -o main_test.out $(LMAIN) $(NAME)
+	cc -o main_test.out $(LMAIN) $(NAME)
 	@make clean
 	@echo 
 	@echo '|-----TEST-----|'
@@ -59,12 +59,12 @@ run: lmain $(NAME)
 	@echo
 
 test: $(NAME) tmain
-	cc $(CFLAGS) -fsanitize=address -g -ggdb3 -o usr_test.out $(TMAIN) $(NAME)
+	cc -fsanitize=address -g -ggdb3 -o usr_test.out $(TMAIN) $(NAME)
 	@make clean
 	@./usr_test.out
 
 debug: $(NAME) run
-	cc $(CFLAGS) -fsanitize=address -g -ggdb3 -o main_test.out $(LMAIN) $(NAME)
+	cc -fsanitize=address -g -ggdb3 -o main_test.out $(LMAIN) $(NAME)
 	@make clean
 	@$(VALGRIND) ./main_test.out
 	@echo

@@ -12,7 +12,7 @@
 
 #include "../../ft_printf.h"
 
-static size_t	digit_count_again(int n)
+static size_t	digit_count_u(int n)
 {
 	size_t	count;
 
@@ -37,7 +37,7 @@ static char	*utoa(unsigned int n)
 	unsigned int	num;
 
 	num = n;
-	digits = digit_count_again(n);
+	digits = digit_count_u(n);
 	str = (char *)malloc(digits + 1);
 	if (!str)
 		return (NULL);
@@ -53,7 +53,7 @@ static char	*utoa(unsigned int n)
 	return (str);
 }
 
-static int	handle_plus_space(int n, t_pdata *flags, int side)
+static int	handle_plus_space_u(int n, t_pdata *flags, int side)
 {
 	if (!(flags->padding_side == side))
 		return (0);
@@ -64,11 +64,11 @@ static int	handle_plus_space(int n, t_pdata *flags, int side)
 	return (flags->force_sign | flags->space_for_sign);
 }
 
-static int	extra_flags(int len, t_pdata *flags, unsigned int n, int phase)
+static int	extra_flags_u(int len, t_pdata *flags, unsigned int n, int phase)
 {
 	int	count;
 
-	len += handle_plus_space(n, flags, phase);
+	len += handle_plus_space_u(n, flags, phase);
 	if (phase == 1)
 	{
 		count = flags->precision;
@@ -89,10 +89,10 @@ int	print_uint(unsigned int n, t_pdata *flags)
 	original_length = ft_strlen(out);
 	original_precision = flags->precision;
 	flags->precision -= original_length;
-	len = extra_flags(original_length, flags, n, 0);
+	len = extra_flags_u(original_length, flags, n, 0);
 	len = handle_padding(flags, len + original_precision, PAD_LEFT);
 	write(1, out, ft_strlen(out));
-	len = extra_flags(len, flags, n, 1);
+	len = extra_flags_u(len, flags, n, 1);
 	len = handle_padding(flags, len, PAD_RIGHT);
 	free(out);
 	return (len);
