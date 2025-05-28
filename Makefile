@@ -78,7 +78,7 @@ debug: $(NAME) run
 lmain: $(LMAIN)
 
 $(LMAIN):
-	@curl -o $(LMAIN) 'https://raw.githubusercontent.com/maloryware/42-remote/refs/heads/main/common-core/ms1/ft_printf/__loc_main.c'
+	@curl -o $(LMAIN) 'https://raw.githubusercontent.com/maloryware/42-remote/refs/heads/main/common-core/ms1/ft_printf/__main_tests.c'
 
 tmain: $(TMAIN)
 
