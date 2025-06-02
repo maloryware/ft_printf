@@ -67,6 +67,13 @@ debug: $(NAME) run
 	cc -fsanitize=address -g -ggdb3 -o main_test.out $(LMAIN) $(NAME)
 	@make clean
 	@$(VALGRIND) ./main_test.out
+	@echo
+	@echo
+	@echo
+	@echo
+	@echo
+	@echo
+	@./main_test.out
 
 lmain: $(LMAIN)
 

@@ -14,7 +14,7 @@
 
 static int	handle_plus_space(int n, t_pdata *flags, int side)
 {
-	if (flags->padding_side != side)
+	if (!(flags->padding_side == side))
 		return (0);
 	if (n >= 0 && flags->force_sign)
 		ft_putchar('+');
@@ -29,7 +29,6 @@ static int	extra_flags(int len, t_pdata *flags, unsigned int n, int phase)
 	int	len_tmp;
 
 	len_tmp = len;
-	len += handle_plus_space(n, flags, phase);
 	if (phase == 1)
 	{
 		count = flags->precision;
@@ -39,6 +38,7 @@ static int	extra_flags(int len, t_pdata *flags, unsigned int n, int phase)
 			len_tmp++;
 		}
 	}
+	len += handle_plus_space(n, flags, phase);
 	return (len);
 }
 
