@@ -78,12 +78,12 @@ debug: $(NAME) run
 lmain: $(LMAIN)
 
 $(LMAIN):
-	@curl -o $(LMAIN) 'https://raw.githubusercontent.com/maloryware/42-remote/refs/heads/main/common-core/ms1/ft_printf/__main_tests.c'
+	@curl -o $(LMAIN) 'https://raw.githubusercontent.com/maloryware/ft_printf/refs/heads/main/__main_tests.c'
 
 tmain: $(TMAIN)
 
 $(TMAIN):
-	@curl -o $(TMAIN) 'https://raw.githubusercontent.com/maloryware/42-remote/refs/heads/main/common-core/ms1/ft_printf/__usr_tests.c'
+	@curl -o $(TMAIN) 'https://raw.githubusercontent.com/maloryware/ft_printf/refs/heads/main/__usr_tests.c'
 
 clean:
 	@rm -f $(OBJ)
