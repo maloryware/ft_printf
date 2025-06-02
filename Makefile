@@ -1,4 +1,4 @@
-# To test program, execute 'make run'. #
+# To test program, execute 'make run'.
 
 NAME = libftprintf.a
 
