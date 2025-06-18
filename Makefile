@@ -7,6 +7,8 @@ ETC = etc
 LIBS = $(ETC)/stdlibs
 PRNT = $(ETC)/printers
 
+
+MAIN = main.c
 LMAIN = __main_tests.c
 TMAIN = __usr_tests.c
 
@@ -46,6 +48,8 @@ $(NAME): $(OBJ)
 list: $(NAME)
 	@ar -t $(NAME) | sed 's/\.o/.c/g' | awk '{print "#include \"" $$1 "\""}'
 
+framador: re
+
 run: lmain $(NAME)
 	cc -o main_test.out $(LMAIN) $(NAME)
 	@make clean
@@ -68,15 +72,27 @@ debug: $(NAME) run
 	@make clean
 	@$(VALGRIND) ./main_test.out
 
+$(MAIN):
+	$(CC) $(CFLAGS) -g main.c $(NAME)
+
+redo: re $(MAIN)
+
+redo-val: redo
+	$(VALGRIND) ./a.out
+
+redo-valplus: re 
+	$(CC) $(CFLAGS) -fsanitize=address -g -ggdb3 $(MAIN) $(NAME)
+	$(VALGRIND) ./a.out
+
 lmain: $(LMAIN)
 
 $(LMAIN):
-	@curl -o $(LMAIN) 'https://raw.githubusercontent.com/maloryware/ft_printf/refs/heads/main/__main_tests.c'
+	@curl -o $(LMAIN) 'https://raw.githubusercontent.com/maloryware/27tester-tests/refs/heads/main/ft_printf/mal/bonus/main.c'
 
 tmain: $(TMAIN)
 
 $(TMAIN):
-	@curl -o $(TMAIN) 'https://raw.githubusercontent.com/maloryware/ft_printf/refs/heads/main/__usr_tests.c'
+	@curl -o $(TMAIN) 'https://raw.githubusercontent.com/maloryware/27tester-tests/refs/heads/main/ft_printf/vivaz-ca/bonus/main.c'
 
 clean:
 	@rm -f $(OBJ)

@@ -12,15 +12,13 @@
 
 #include "../../ft_printf.h"
 
-static size_t	digit_count_u(int n)
+static size_t	digit_count_u(unsigned int n)
 {
 	size_t	count;
 
 	count = 0;
 	if (n == 0)
 		return (1);
-	if (n < 0)
-		count++;
 	while (n != 0)
 	{
 		count++;
