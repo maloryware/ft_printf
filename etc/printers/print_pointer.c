@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../ft_printf.h"
+#include <stdlib.h>
 
 static char	*htol(unsigned long long addr)
 {
@@ -26,7 +27,7 @@ static char	*htol(unsigned long long addr)
 		i++;
 	}
 	i += 1;
-	out = ft_calloc(i, sizeof(char));
+	out = ft_calloc(i + 1, sizeof(char));
 	out[0] = '0';
 	out[1] = 'x';
 	while (i - 1)
@@ -47,5 +48,6 @@ int	print_pointer(void *ptr, t_pdata *flags)
 	len = handle_padding(flags, len, PAD_LEFT);
 	ft_putstr(out);
 	len = handle_padding(flags, len, PAD_RIGHT);
+	free(out);
 	return (len);
 }

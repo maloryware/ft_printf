@@ -37,18 +37,18 @@ static char	*reverse_hex(char *hex, int len)
 
 	i = 0;
 	out = ft_calloc(len + 1, sizeof(char));
-	while (len-- >= 0)
+	while (hex[i] && len-- >= 0)
 		out[len] = hex[i++];
 	free(hex);
 	hex = NULL;
 	return (out);
 }
 
-static char	*ft_atoh(int hex, const char *set)
+static char	*ft_atoh(unsigned int hex, const char *set)
 {
-	char	*last;
-	int		i;
-	int		hex_tmp;
+	char			*last;
+	int				i;
+	unsigned int	hex_tmp;
 
 	hex_tmp = hex;
 	i = 0;
