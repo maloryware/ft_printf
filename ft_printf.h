@@ -6,7 +6,7 @@
 /*   By: Mal <malory@onenetbeyond.org>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 02:09:20 by Mal               #+#    #+#             */
-/*   Updated: 2025/05/28 02:46:55 by Mal              ###   ########.fr       */
+/*   Updated: 2025/06/23 23:17:34 by Mal              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 # define HEX_LOWER "0123456789abcdef"
 # define NULL_STR "(null)"
 # define NIL_STR "(nil)"
-# define PAD_LEFT 0
-# define PAD_RIGHT 1
+# define PAD_LEFT 1
+# define PAD_RIGHT 2
 # define FALSE 0
 # define TRUE 1
 
@@ -52,6 +52,8 @@
  *		
  *		important notes:
  *		- '#' always place 0x on the left, regardless of '-'
+ *		- FIXME: '.' defines exact amount of visible characters UNLESS the flagless value itself <= precision
+ *		- FIXME: negative zero-padded values must place sign first
  *		
  *		
  */
