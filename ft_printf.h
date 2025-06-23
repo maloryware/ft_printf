@@ -6,7 +6,7 @@
 /*   By: Mal <malory@onenetbeyond.org>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 02:09:20 by Mal               #+#    #+#             */
-/*   Updated: 2025/06/23 23:17:34 by Mal              ###   ########.fr       */
+/*   Updated: 2025/06/23 23:27:14 by Mal              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,13 @@
  *		- '#' always place 0x on the left, regardless of '-'
  *		- FIXME: '.' defines exact amount of visible characters UNLESS the flagless value itself <= precision
  *		- FIXME: negative zero-padded values must place sign first
+ *		- FIXME: 0x comes BEFORE zero pad, AFTER space pad 
  *		
+ *		
+ *		
+ *		
+ *		
+ *		- FIXME: fuck this project's bonus. seriously. fuck your goddamn bullshit precision, printf. 
  *		
  */
 typedef struct s_pdata
