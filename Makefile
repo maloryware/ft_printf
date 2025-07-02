@@ -2,10 +2,10 @@
 
 NAME = libftprintf.a
 
-ETC = etc
+INCL = include
 
-LIBS = $(ETC)/stdlibs
-PRNT = $(ETC)/printers
+HNDL = $(INCL)/handler
+LIBFT = $(INCL)/libft/libft.a
 
 
 MAIN = main.c
@@ -14,17 +14,14 @@ TMAIN = __usr_tests.c
 
 # ------------- #
 
-STDLIBS = $(LIBS)/mini_libft.c $(LIBS)/substr.c \
-			$(LIBS)/atoi.c $(LIBS)/itoa.c
-
-PRINTERS = $(PRNT)/print_char.c $(PRNT)/print_dec_int.c \
-			$(PRNT)/print_hex.c $(PRNT)/print_pointer.c \
-			$(PRNT)/print_string.c $(PRNT)/print_uint.c
+HANDLERS = $(HNDL)/print_char.c $(HNDL)/print_dec_int.c \
+			$(HNDL)/print_hex.c $(HNDL)/print_pointer.c \
+			$(HNDL)/print_string.c $(HNDL)/print_uint.c
 
 SRC = ft_printf.c \
-			$(STDLIBS) $(PRINTERS) \
-			$(ETC)/format_delegator.c \
-			$(ETC)/aux.c
+			$(HANDLERS) \
+			$(INCL)/format_delegator.c \
+			$(INCL)/aux.c
 
 # ------------- #
 
@@ -43,10 +40,10 @@ $(NAME): $(OBJ)
 	@echo Finished compiling.
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I$(ETC) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCL) -c $< -o $@
 
 list: $(NAME)
-	@ar -t $(NAME) | sed 's/\.o/.c/g' | awk '{print "#include \"" $$1 "\""}'
+	@ar -t $(NAME) | sed 's/\.o/.c/g' | xargs -I% find . -name "%" | sed 's/\.\///g' | awk '{print "#include \"" $$1 "\""}'
 
 run: lmain $(NAME)
 	cc -o main_test.out $(LMAIN) $(NAME)

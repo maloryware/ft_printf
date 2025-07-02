@@ -6,32 +6,19 @@
 /*   By: Mal <malory@onenetbeyond.org>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 02:09:20 by Mal               #+#    #+#             */
-/*   Updated: 2025/07/02 14:45:04 by Mal              ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Mal <malory@onenetbeyond.org>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 17:48:53 by Mal          #+#    #+#             */
-/*   Updated: 2025/05/10 22:27:50 by Mal         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:02:33 by Mal              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stdarg.h>
-# include <stdio.h>
-# include <stddef.h>
-# include <stdlib.h>
+# include "include/libft/libft.h"
 # include <string.h>
 # include <unistd.h>
 # include <limits.h>
+# include <stdarg.h>
+
 
 # define HEX_UPPER "0123456789ABCDEF"
 # define HEX_LOWER "0123456789abcdef"
@@ -42,32 +29,23 @@
 # define FALSE 0
 # define TRUE 1
 
-/* 
+/*
  *		flags:
  *		' ' --> provide extra space for a sign
  *		'0' --> pads value with zeros
- *		'#' --> pads hex with 0x or 0X 
+ *		'#' --> pads hex with 0x or 0X
  *		'+' --> forces sign usage on numbers (overrides space)
  *		'-' --> places padding on the right (overrides zero)
- *		
+ *
  *		important notes:
  *		- '#' always place 0x on the left, regardless of '-'
- *		- FIXME: '.' defines exact amount of visible characters 
+ *		- '.' defines exact amount of visible characters
  *				UNLESS the flagless value itself <= precision
- *		- FIXME: negative zero-padded values must place sign first
- *		- FIXME: 0x comes BEFORE zero pad, AFTER space pad 
- *		
- *		
- *		FIXME: CRITICAL !!! FIXME: FIXME: FIXME:
- *		- FIXME:  null handling for string and ptr
- *		- FIXME:  0 handling for hex
- *		
- *		
- *		
- *		
- *		- FIXME: fuck this project's bonus. seriously. 
- *			fuck your goddamn bullshit precision, printf. 
- *		
+ *		- negative zero-padded values must place sign first
+ *		- 0x comes BEFORE zero pad, AFTER space pad
+ *
+ *		- fuck this project. seriously.
+ *
  */
 typedef struct s_pdata
 {
@@ -102,16 +80,5 @@ int		print_hex(unsigned int hex, char hcase, t_pdata *flags);
 
 char	*get_case(char hcase);
 char	*get_padding_case(char hcase);
-char	*ft_itoa(int n);
-int		ft_atoi(const char *nptr);
-
-void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memset(void *s, int c, size_t n);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *str);
-void	ft_putchar(int a);
-void	ft_putstr(const char *str);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dsize);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

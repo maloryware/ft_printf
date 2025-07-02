@@ -81,6 +81,7 @@ static int	handle_flags(
 {
 	while (matches(format[pos], "#0-+ .123456789"))
 	{
+		// TODO: rewrite this entire bullshit
 		f->pad_0x = (format[pos] == '#' || f->pad_0x);
 		if (!f->padding_side)
 			f->padding_side = ((format[pos] == '-') + 1);

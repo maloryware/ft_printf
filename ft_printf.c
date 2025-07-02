@@ -19,7 +19,7 @@ t_pdata	*fl_init(void)
 	data = malloc(sizeof(t_pdata));
 	data->pad_0x = FALSE;
 	data->zero_pad = FALSE;
-	data->padding_side = PAD_LEFT;
+	data->padding_side = 0;
 	data->padding_length = 0;
 	data->space_for_sign = FALSE;
 	data->force_sign = FALSE;
@@ -33,7 +33,7 @@ void	reset_pdata(t_pdata *data)
 {
 	data->pad_0x = FALSE;
 	data->zero_pad = FALSE;
-	data->padding_side = PAD_LEFT;
+	data->padding_side = 0;
 	data->padding_length = 0;
 	data->space_for_sign = FALSE;
 	data->force_sign = FALSE;
@@ -50,6 +50,8 @@ int	ft_printf(const char *format, ...)
 	int				len;
 	va_list			params;
 
+	if (!format)
+		return (-1);
 	f = fl_init();
 	index = 0;
 	va_start(params, format);
@@ -61,8 +63,8 @@ int	ft_printf(const char *format, ...)
 		{
 			write(1, &format[index], 1);
 			f->len++;
+			reset_pdata(f);
 		}
-		reset_pdata(f);
 		index++;
 	}
 	len = f->len;
