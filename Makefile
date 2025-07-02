@@ -48,8 +48,6 @@ $(NAME): $(OBJ)
 list: $(NAME)
 	@ar -t $(NAME) | sed 's/\.o/.c/g' | awk '{print "#include \"" $$1 "\""}'
 
-framador: re
-
 run: lmain $(NAME)
 	cc -o main_test.out $(LMAIN) $(NAME)
 	@make clean

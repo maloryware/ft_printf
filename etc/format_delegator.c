@@ -82,12 +82,13 @@ static int	handle_flags(
 	while (matches(format[pos], "#0-+ .123456789"))
 	{
 		f->pad_0x = (format[pos] == '#' || f->pad_0x);
-		f->padding_side = (format[pos] == '-' || f->padding_side);
+		if (!f->padding_side)
+			f->padding_side = ((format[pos] == '-') + 1);
 		f->force_sign = (format[pos] == '+' || f->force_sign);
 		f->space_for_sign = ((format[pos] == ' ' || f->space_for_sign)
 				&& !f->force_sign);
 		f->zero_pad = ((format[pos] == '0' || f->zero_pad)
-				&& !f->padding_side);
+				&& f->padding_side != 1);
 		f->has_precision = ((format[pos] == '.' || f->has_precision));
 		if (matches(format[pos], "123456789"))
 			pos = set_padding_length(f, (char *) format, pos) - 1;

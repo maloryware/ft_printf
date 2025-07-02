@@ -12,24 +12,6 @@
 
 #include "../../ft_printf.h"
 
-static char	*get_case(char hcase)
-{
-	if (hcase == 'x')
-		return (HEX_LOWER);
-	if (hcase == 'X')
-		return (HEX_UPPER);
-	return (NULL);
-}
-
-static char	*get_padding_case(char hcase)
-{
-	if (hcase == 'x')
-		return ("0x");
-	if (hcase == 'X')
-		return ("0X");
-	return (NULL);
-}
-
 static char	*reverse_hex(char *hex, int len)
 {
 	int		i;
@@ -69,12 +51,29 @@ static char	*ft_atoh(unsigned int hex, const char *set)
 	return (last);
 }
 
+static int	handle_edge_case(char hcase, t_pdata *f)
+{
+	int		len;
+
+	len = 1;
+	len = handle_padding(f, len, PAD_LEFT);
+	if (f->pad_0x)
+		write(1, get_padding_case(hcase), 2);
+	if (f->pad_0x)
+		len += 2;
+	len = handle_padding(f, len, PAD_RIGHT);
+	ft_putstr("0");
+	return (len);
+}
+
 int	print_hex(unsigned int hex, char hcase, t_pdata *f)
 {
 	int			len;
 	char		*out;
 	const char	*set;
 
+	if (!hex)
+		return (handle_edge_case(hcase, f));
 	set = get_case(hcase);
 	out = ft_atoh(hex, set);
 	if (!out)

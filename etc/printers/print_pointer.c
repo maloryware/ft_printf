@@ -43,6 +43,8 @@ int	print_pointer(void *ptr, t_pdata *flags)
 	int		len;
 	char	*out;
 
+	if (!ptr)
+		return (ft_putstr(NIL_PTR), ft_strlen(NIL_PTR));
 	out = htol((unsigned long long) ptr);
 	len = ft_strlen(out);
 	len = handle_padding(flags, len, PAD_LEFT);

@@ -31,7 +31,7 @@ int	handle_padding(t_pdata *flags, int len, int side)
 	if (side != flags->padding_side
 		|| flags->padding_length <= len)
 		return (len);
-	pad = " ";
+	pad = "=";
 	if (flags->zero_pad)
 		pad = "0";
 	pad_len = flags->padding_length - len;
@@ -39,4 +39,22 @@ int	handle_padding(t_pdata *flags, int len, int side)
 	while (pad_len--)
 		write(1, pad, 1);
 	return (len);
+}
+
+char	*get_case(char hcase)
+{
+	if (hcase == 'x')
+		return (HEX_LOWER);
+	if (hcase == 'X')
+		return (HEX_UPPER);
+	return (NULL);
+}
+
+char	*get_padding_case(char hcase)
+{
+	if (hcase == 'x')
+		return ("0x");
+	if (hcase == 'X')
+		return ("0X");
+	return (NULL);
 }

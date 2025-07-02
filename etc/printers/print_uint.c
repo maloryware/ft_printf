@@ -53,7 +53,7 @@ static char	*utoa(unsigned int n)
 
 static int	handle_plus_space_u(int n, t_pdata *flags, int side)
 {
-	if (!(flags->padding_side == side))
+	if (flags->padding_side != side)
 		return (0);
 	if (n >= 0 && flags->force_sign)
 		ft_putchar('+');

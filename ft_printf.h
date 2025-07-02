@@ -6,7 +6,7 @@
 /*   By: Mal <malory@onenetbeyond.org>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 02:09:20 by Mal               #+#    #+#             */
-/*   Updated: 2025/06/23 23:27:14 by Mal              ###   ########.fr       */
+/*   Updated: 2025/07/02 14:45:04 by Mal              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define HEX_UPPER "0123456789ABCDEF"
 # define HEX_LOWER "0123456789abcdef"
 # define NULL_STR "(null)"
-# define NIL_STR "(nil)"
+# define NIL_PTR "(nil)"
 # define PAD_LEFT 1
 # define PAD_RIGHT 2
 # define FALSE 0
@@ -52,15 +52,21 @@
  *		
  *		important notes:
  *		- '#' always place 0x on the left, regardless of '-'
- *		- FIXME: '.' defines exact amount of visible characters UNLESS the flagless value itself <= precision
+ *		- FIXME: '.' defines exact amount of visible characters 
+ *				UNLESS the flagless value itself <= precision
  *		- FIXME: negative zero-padded values must place sign first
  *		- FIXME: 0x comes BEFORE zero pad, AFTER space pad 
  *		
  *		
+ *		FIXME: CRITICAL !!! FIXME: FIXME: FIXME:
+ *		- FIXME:  null handling for string and ptr
+ *		- FIXME:  0 handling for hex
  *		
  *		
  *		
- *		- FIXME: fuck this project's bonus. seriously. fuck your goddamn bullshit precision, printf. 
+ *		
+ *		- FIXME: fuck this project's bonus. seriously. 
+ *			fuck your goddamn bullshit precision, printf. 
  *		
  */
 typedef struct s_pdata
@@ -94,6 +100,8 @@ int		print_string(char *str, t_pdata *flags);
 int		print_uint(unsigned int uint, t_pdata *flags);
 int		print_hex(unsigned int hex, char hcase, t_pdata *flags);
 
+char	*get_case(char hcase);
+char	*get_padding_case(char hcase);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *nptr);
 

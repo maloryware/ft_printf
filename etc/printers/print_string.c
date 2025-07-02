@@ -17,6 +17,8 @@ int	print_string(char *str, t_pdata *flags)
 	int	len;
 	int	limit;
 
+	if (!str)
+		return (ft_putstr(NULL_STR), ft_strlen(NULL_STR));
 	limit = flags->has_precision * flags->precision;
 	if (limit)
 		str = ft_substr(str, 0, limit);
