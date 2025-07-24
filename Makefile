@@ -39,7 +39,7 @@ list: $(NAME)
 download:
 	@curl -o main.c https://raw.githubusercontent.com/maloryware/27tester-tests/refs/heads/main/ft_printf/framador/standard/main.c
 
-.main: $(NAME)
+.main: $(NAME) download
 	$(CC) -g $(CFLAGS) $(MAIN) $(NAME) -o $(FNC)
 
 run: $(NAME) .main
