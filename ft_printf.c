@@ -6,68 +6,40 @@
 /*   By: Mal <malory@onenetbeyond.org>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:48:49 by Mal               #+#    #+#             */
-/*   Updated: 2025/07/07 13:03:58 by Mal              ###   ########.fr       */
+/*   Updated: 2025/07/24 13:46:51 by Mal              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_format_data	*fl_init(void)
-{
-	t_format_data		*data;
-
-	data = malloc(sizeof(t_format_data));
-	data->pad_0x = FALSE;
-	data->zero_pad = FALSE;
-	data->padding_side = 0;
-	data->padding_length = 0;
-	data->space_for_sign = FALSE;
-	data->force_sign = FALSE;
-	data->len = 0;
-	data->precision = FALSE;
-	data->has_precision = FALSE;
-	return (data);
-}
-
-void	reset_data(t_format_data *data)
-{
-	data->pad_0x = FALSE;
-	data->zero_pad = FALSE;
-	data->padding_side = 0;
-	data->padding_length = 0;
-	data->space_for_sign = FALSE;
-	data->force_sign = FALSE;
-	data->precision = FALSE;
-	data->has_precision = FALSE;
-}
-
-// TODO: see also: printf manpage 3
-
 int	ft_printf(const char *format, ...)
 {
-	t_format_data			*f;
-	int						index;
-	int						len;
-	va_list					params;
+	int				len;
+	va_list			params;
 
 	if (!format)
 		return (-1);
-	f = fl_init();
-	index = 0;
 	va_start(params, format);
-	while (format[index])
+	len = 0;
+	while (*format)
 	{
-		if (format[index] == '%')
-			index = format_delegator(index, params, format, f);
-		else
+		if (*format == '%' && *format + 1)
 		{
-			write(1, &format[index], 1);
-			f->len++;
-			reset_data(f);
+			len += format_delegator(params, format);
+			format++;
 		}
-		index++;
+		else
+			len += write(1, format, 1);
+		format++;
 	}
-	len = f->len;
-	free(f);
+	va_end(params);
 	return (len);
 }
+
+/* int main()
+{
+	#include <stdio.h>
+
+	ft_printf("Test: %d, %c, %s, %x\n", 12, 'L', "test", 0x1337);
+	printf("Test: %d, %c, %s, %x\n", 12, 'L', "test", 0x1337);
+} */
